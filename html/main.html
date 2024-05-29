@@ -16,40 +16,83 @@
   <!--bootstrap (remove this in the future)   remved :thumbsup: -marbelynrye -->
   <link rel="canonical" href="https://spax.zone/html/main"/>
   <link rel="stylesheet" href="/css/experimental.css"/>
+  <link rel="stylesheet" href="/css/new.css"/>
+  <style>
+    body {
+      background: var(--bg-color);
+    }
+    #bg {
+      width: 100%;
+    }
+    #transition-fade-div-thing {
+      position: absolute;
+      background: linear-gradient(transparent, var(--bg-color));
+      height: 500px;
+      width: 100%;
+      z-index: 2;
+      bottom: 0;
+    }
+    #the-good-stuff {
+      margin-top: 100vh;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      background: var(--bg-color);
+      height: 100vh;
+      font-family: "Fira Code";
+    }
+  </style>
 </head>
 <body>
-    <article>
-      <a href="../html/sitelist">Click here</a> to see my full site list!<br>
-      -Spax
-    </article>
-    <article who="claire" emotion="neutral">
-      Hey nerds. It's me, Claire.
-    </article>
-    <article who="claire" emotion="happy">
-      I am now on a website. Woo!
-    </article>
-    <article who="claire" emotion="sigh">
-      Anyways it's time to refactor pretty much the entire site.
-    </article>
-    <article who="claire" emotion="look">
-      Spax hasn't worked on it in over two years.
-    </article>
-    <article who="spax" emotion="look">
-      True...
-    </article>
-    <article who="spax" emotion="happy">
-      But keep an eye out for some new changes in the next few weeks!
-    </article>
-    <!--
-    <script>
-      document.querySelectorAll("article")
-        .forEach(article => 
-          article.style.setProperty(
-            "--textbox-data",
-            `url(../images/faces/${article.getAttribute('who')}/${article.getAttribute('emotion')}.png)`
-          )
-        );
-    </script>
-    -->
+  <div id="bg">
+  <article>
+    <a href="../html/sitelist">Click here</a> to see my full site list!<br>
+    -Spax
+  </article>
+  <article who="claire" emotion="neutral">
+    Hey nerds. It's me, Claire.
+  </article>
+  <article who="claire" emotion="happy">
+    I am now on a website. Woo!
+  </article>
+  <article who="claire" emotion="sigh">
+    Anyways it's time to refactor pretty much the entire site.
+  </article>
+  <article who="claire" emotion="look">
+    Spax hasn't worked on it in over two years.
+  </article>
+  <article who="spax" emotion="look">
+    True...
+  </article>
+  <article who="spax" emotion="happy">
+    But keep an eye out for some new changes in the next few weeks!
+  </article>
+  <!--
+  <script>
+    document.querySelectorAll("article")
+      .forEach(article => 
+        article.style.setProperty(
+          "--textbox-data",
+          `url(../images/faces/${article.getAttribute('who')}/${article.getAttribute('emotion')}.png)`
+        )
+      );
+  </script>
+  -->
+  <br><br><br><br><br><br><br><br><br>
+  <article who="spax" emotion="look">
+    ...and months later, here I am.
+  </article>
+  <article who="spax" emotion="disappointed">
+    Screw it.
+  </article>
+  <article who="spax" emotion="smirk">
+    Welcome to my website...
+  </article>
+  <div id="transition-fade-div-thing"></div>
+  </div>
+  <div id="the-good-stuff">
+    <div>Hey, I'm Spax</div>
+  </div>
 </body>
 </html>

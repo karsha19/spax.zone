@@ -1,0 +1,14 @@
+@import url("./../fonts/Fira Code/fira_code.css");
+
+:root {
+  --bg-color: #000413;
+}
+
+@font-face {
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-VariableFont_wght.ttf") format("truetype");
+}
+
+div {
+  color: white;
+}
