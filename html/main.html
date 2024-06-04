@@ -33,6 +33,8 @@
       bottom: 0;
     }
     #the-good-stuff {
+      font-smooth: auto;
+      -webkit-font-smoothing: auto;
       margin-top: 100vh;
       display: flex;
       align-items: center;
@@ -43,6 +45,7 @@
       font-family: "Fira Code";
     }
   </style>
+  <style id="scrollbar"></style>
 </head>
 <body>
   <div id="bg">
@@ -68,17 +71,6 @@
   <article who="spax" emotion="happy">
     But keep an eye out for some new changes in the next few weeks!
   </article>
-  <!--
-  <script>
-    document.querySelectorAll("article")
-      .forEach(article => 
-        article.style.setProperty(
-          "--textbox-data",
-          `url(../images/faces/${article.getAttribute('who')}/${article.getAttribute('emotion')}.png)`
-        )
-      );
-  </script>
-  -->
   <br><br><br><br><br><br><br><br><br>
   <article who="spax" emotion="look">
     ...and months later, here I am.
@@ -94,5 +86,35 @@
   <div id="the-good-stuff">
     <div>Hey, I'm Spax</div>
   </div>
+  <!--small bit of javascript to enhance the page-->
+  <script>
+const startColorChangeAt =
+  document.querySelector(`#bg`).offsetHeight
+  - document.querySelector(`#transition-fade-div-thing`).offsetHeight/3
+  - window.innerHeight;
+console.log(`script running...`);
+window.onscroll = () => {
+  console.log(window.scrollY);
+  let css = ``;
+  if (window.scrollY > startColorChangeAt) {
+    console.log("here");
+    css =
+`@supports (scrollbar-color: auto) {
+  body {
+    scrollbar-color: var(--bg-color) var(--bg-color-secondary);
+  }
+}
+@supports selector(::-webkit-scrollbar) {
+  body::-webkit-scrollbar {
+    background: var(--bg-color);
+  }
+  body::-webkit-scrollbar-thumb {
+    background: var(--bg-color-secondary);
+  }
+}`;
+  }
+  document.querySelector(`#scrollbar`).innerHTML = css;
+};
+  </script>
 </body>
 </html>
