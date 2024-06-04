@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Tumblr-to-Cohost Username Generator</title>
+  <link rel="icon" href="./icon.png">
   <link rel="stylesheet" href="./styles.css" type=text/css>
   <script src="./agbplist.js"></script>
   <script src="./script.js" defer></script>
@@ -10,6 +11,7 @@
   <h1 id="title">Tumblr-to-Cohost Username Generator</h1>
   <button id="spin-button" onclick="spin()"><div>Spin!</div></button>
   <div id="username"><span id="at">@</span><span id="animal"></span><span class="separator"></span><span id="gender"></span><span class="separator"></span><span id="bodypart"></span></div>
+  <button id="copy-button" disabled><div>Copy</div></button>
   <div id="optionscontainer">
     <div id="separatorcontainer">
       <label for="separator-button">Separating Character</label>
@@ -19,6 +21,10 @@
       <label for="separatecomponents-button">Separate Components?</label>
       <button id="separatecomponents-button" onclick="changeSeparateComponents()"><div>Yes</div></button>
     </div>
+    <div id="genitalbodypartcontainer">
+      <label for="genitalbodypart-button">Genital Bodypart?</label>
+      <button id="genitalbodypart-button" onclick="changeGenitalBodypart()"><div>No</div></button>
+    </div>
   </div>
   <div id="footer">
     inspired by <a href="https://cohost.org/bethposting/post/6065965-cohost-users-who-cam" target="_blank">this</a> chost
@@ -27,7 +33,7 @@
     <br>
     tag <a class="tag" href="https://cohost.org/rc/tagged/animal%20gender%20bodypart" target="_blank">#animal gender bodypart</a> when sharing!
     <br>
-    <a href="https://github.com/SpiritAxolotl/spax.zone/blob/main/tests/animal-gender-bodypart/">v1.6</a>
+    <a href="https://github.com/SpiritAxolotl/spax.zone/blob/main/tests/animal-gender-bodypart/">v1.8.7</a>
   </div>
 </body>
 </html>

@@ -1,7 +1,36 @@
 :root {
-  --desaturated-yellow: rgb(35, 35, 0);
-  --desaturated-red: rgb(34, 0, 0);
-  --color-cherry: rgb(131 37 79);
+  --desaturated-yellow: 35 35 0;
+  --desaturated-red: 34 0 0;
+  --color-notWhite: 255 249 242;
+  --color-notBlack: 25 25 25;
+  --color-cherry: 131 37 79;
+  --color-strawberry: 229 107 111;
+  --color-mango: 255 171 92;
+  --color-longan: 255 216 168;
+  --disabled-opacity: 1;
+  --ease-pop: linear(
+    0,
+    0.706317972392746,
+    0.8965057166577356,
+    0.9793806636722006,
+    1,
+    0.984375,
+    0.9393441861213596,
+    0.8748402979258557,
+    0.7968939703624319,
+    0.7102310913533709,
+    0.618718433538229,
+    0.5256230677729052,
+    0.43377413477523075,
+    0.3456693009583003,
+    0.2635479083582337,
+    0.1894430570778458,
+    0.12521980673998806,
+    0.07260391260118129,
+    0.03320391543176782,
+    0.008528445051707747,
+    0
+  );
 }
 
 @font-face {
@@ -10,9 +39,32 @@
 }
 
 html {
-  background-color: var(--desaturated-red);
+  background: linear-gradient(to bottom, rgb(var(--color-strawberry)), rgb(var(--color-mango)));
 }
-
+html::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  image-rendering: pixelated;
+  left: 0;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* thanks */
+  background-image: url(data:image/gif;base64,R0lGODlhCgAKAKECADAwMEdHR15eXl5eXiH5BAEKAAIALAAAAAAKAAoAAAIRhB2ZhxoM3GMSykqd1VltzxQAOw==);
+  background-size: 100px 100px;
+  background-position: 0 0, 0 50px, 50px -50px, -50px 0px;
+  animation: scroll 5s linear infinite;
+}
+@keyframes scroll {
+  0% {
+    background-position: 0 0, 0 50px, 50px -50px, -50px 0px;
+  }
+  100% {
+    background-position: 100px 100px, 100px 150px, 150px 50px, 50px 100px;
+  }
+}
 html, body {
   margin: 0;
   color: white;
@@ -31,22 +83,12 @@ body {
   display: flex;
   align-items: center;
   /* justify-content: center; */
+  margin-top: 10vh;
   flex-direction: column;
-  background-image:
-    linear-gradient(45deg, var(--desaturated-yellow) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--desaturated-yellow) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--desaturated-yellow) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--desaturated-yellow) 75%);
-  background-size: 20px 20px;
-  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-}
-
-button {
-  cursor: pointer;
 }
 
 #title {
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
   font-size: 3rem;
   max-width: 650px;
 }
@@ -54,22 +96,32 @@ button {
 #spin-button {
   font-size: 2rem;
 }
+#copy-button {
+  opacity: 0;
+  margin-bottom: 2rem;
+  transition: opacity 0.5s ease;
+  & > div {
+    transition: background-color 0.25s ease-out;
+  }
+}
+
 button {
   background: none;
   border: none;
   cursor: pointer;
   width: min-content;
   & > div {
+    user-select: none;
     border: 0.075em solid white;
     color: white;
-    border-radius: 0.2rem;
-    background-color: black;
+    border-radius: 0.5rem;
+    background-color: rgba(0,0,0,0.5);
     padding: 0.5em 1rem;
     pointer-events: none;
     transition: transform 0.15s ease, background-color 0.1s ease;
   }
   &:hover > div {
-    background-color: #111;
+    background-color: rgb(17, 17, 17, 0.8);
     transform: scale(0.96);
   }
   &:active > div {
@@ -77,36 +129,39 @@ button {
     transform: scale(0.94);
   }
   &:disabled > div {
-    background-color: black;
+    background-color: rgb(17, 17, 17, 0.9);
     transform: scale(1);
+  }
+  &:disabled {
+    cursor: default;
   }
 }
 
 #username {
   visibility: hidden;
-  margin: 2rem 0;
+  margin: 2rem 0 1rem;
   font-size: 2rem;
   & > span {
     opacity: 0;
     display: inline-block;
-    transition: transform, opacity;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in;
+    transition-property: transform, opacity, text-decoration-color, border-color, margin;
+    transition-duration: 0.5s, 0.5s, 0.1s, 0.1s, 0.1s;
+    transition-timing-function: ease-in, ease-in, ease, ease, ease;
     &:not(#at) {
       transform: translateY(-2rem);
     }
     &#at {
       transform: translateX(-2rem);
-      transition-delay: 0.75s;
+      transition-delay: 0.75s, 0.75s, 0s, 0s, 0s;
     }
     &#gender {
-      transition-delay: 0.25s;
+      transition-delay: 0.25s, 0.25s, 0s, 0s, 0s;
     }
     &#bodypart {
-      transition-delay: 0.5s;
+      transition-delay: 0.5s, 0.5s, 0s, 0s, 0s;
     }
     &.separator {
-      transition-delay: 0.65s;
+      transition-delay: 0.65s, 0.65s, 0s, 0s, 0s;
     }
   }
 }
@@ -119,26 +174,51 @@ button {
 #footer {
   position: absolute;
   text-align: center;
-  color: gray;
+  color: white;
   bottom: 0;
   margin: 2% auto;
-  & > a {
-    color: gray;
+  & > a:not(.tag) {
+    color: white;
+    margin: 1px;
+    /* background-color: rgb(var(--color-mango)); */
   }
 }
 
-#animal, #gender, #bodypart {
-  text-decoration-line: underline;
-  text-decoration-style: solid;
+#at, #animal, #gender, #bodypart {
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: transparent;
+  margin: 0 -3px;
+  &:not(#at) {
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    cursor: pointer;
+    &:hover {
+      margin: 0;
+    }
+  }
+  &:hover {
+    text-decoration-color: transparent;
+  }
 }
 #animal {
-  text-decoration-color: red;
+  text-decoration-color: rgb(var(--color-mango));
+  &:hover {
+    border-color: rgb(var(--color-mango));
+  }
 }
 #gender {
-  text-decoration-color: green;
+  text-decoration-color: rgb(var(--color-strawberry));
+  &:hover {
+    border-color: rgb(var(--color-strawberry));
+  }
 }
 #bodypart {
-  text-decoration-color: blue;
+  text-decoration-color: rgb(var(--color-cherry));
+  &:hover {
+    border-color: rgb(var(--color-cherry));
+  }
 }
 
 .separator {
@@ -159,11 +239,21 @@ button {
 }
 
 .tag {
-  border: solid 3px var(--color-cherry);
+  border: solid 3px rgb(var(--color-cherry));
   border-radius: 20px;
-  background-color: var(--color-cherry);
+  background-color: rgb(var(--color-cherry));
   text-decoration: none;
   white-space: pre;
   color: white !important;
   font-size: 0.75rem;
+}
+
+.flashgreen > div {
+  transition-timing-function: var(--ease-pop) !important;
+  background-color: rgb(86, 126, 86) !important;
+}
+
+.flashred > div {
+  transition-timing-function: var(--ease-pop) !important;
+  background-color: rgb(147, 46, 46) !important;
 }

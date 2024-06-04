@@ -5,7 +5,9 @@ const partspan = document.querySelector(`#bodypart`);
 const atspan = document.querySelector(`#at`);
 const username = document.querySelector(`#username`);
 const separatorbutton = document.querySelector(`#separator-button`);
+const copybutton = document.querySelector(`#copy-button`);
 const separatecomponentsbutton = document.querySelector(`#separatecomponents-button`);
+const genitalbodypartbutton = document.querySelector(`#genitalbodypart-button`);
 const separatorspans = Array.from(document.querySelectorAll(`.separator`));
 const separators = [
   {
@@ -42,10 +44,23 @@ const chosen = {
 const sanitize = (str) => {
   return str.replaceAll(/\s+/g, separator);
 };
-const setusername = () => {
-  animalspan.innerText = sanitize(chosen.animal);
-  genderspan.innerText = sanitize(chosen.gender);
-  partspan.innerText = sanitize(chosen.part);
+const setusername = (component) => {
+  switch (component) {
+    case "animal":
+      animalspan.innerText = sanitize(chosen.animal);
+      break;
+    case "gender":
+      genderspan.innerText = sanitize(chosen.gender);
+      break;
+    case "part":
+      partspan.innerText = sanitize(chosen.part);
+      break;
+    default:
+      animalspan.innerText = sanitize(chosen.animal);
+      genderspan.innerText = sanitize(chosen.gender);
+      partspan.innerText = sanitize(chosen.part);
+      break;
+  }
 };
 const changeSeparator = (n) => {
   const custom = typeof n === "string";
@@ -59,7 +74,7 @@ const changeSeparator = (n) => {
   setusername();
 };
 changeSeparator(localStorage.getItem("separator") ?? defaultseparator);
-let separatecomponents = !!localStorage.getItem("separateComponents")==="true" ?? true;
+let separatecomponents = localStorage.getItem("separateComponents")==="true" ?? true;
 const changeSeparateComponents = (n) => {
   separatecomponents = n ?? separatecomponentsbutton.innerText !== "Yes";
   if (separatecomponents) {
@@ -77,6 +92,18 @@ const changeSeparateComponents = (n) => {
   });
 };
 changeSeparateComponents(localStorage.getItem("separateComponents")==="true" ?? true);
+let genitalbodypart = localStorage.getItem("genitalBodypart")==="true" ?? false;
+const changeGenitalBodypart = (n) => {
+  genitalbodypart = n ?? genitalbodypartbutton.innerText !== "Yes";
+  if (genitalbodypart) {
+    genitalbodypartbutton.innerHTML = `<div>Yes</div>`;
+    localStorage.setItem("genitalBodypart", true);
+  } else {
+    genitalbodypartbutton.innerHTML = `<div>No</div>`;
+    localStorage.setItem("genitalBodypart", false);
+  }
+};
+changeGenitalBodypart(localStorage.getItem("genitalBodypart")==="true" ?? false);
 const initsanitize = (arr) => {
   return Array.from(arr)
     //.filter(item => !item.match(/\s|\-/g))
@@ -89,7 +116,9 @@ const initsanitize = (arr) => {
 };
 const animals = initsanitize(animalList);
 const genders = initsanitize(genderList);
-const parts = initsanitize([...partList, ...boneList]);
+const bodyparts = initsanitize([...partList, ...boneList]);
+const genitals = initsanitize([...penisList, ...vaginaList, ...breastList]);
+//const parts = genitalbodypart ? genitals : bodyparts;
 const random = (arr) => {
   return arr[Math.floor(Math.random()*arr.length)];
 };
@@ -105,13 +134,56 @@ const hideAndPos = () => {
   });
   setTimeout(() => {
     button.disabled = false;
+    copybutton.style.opacity = 1;
+    copybutton.disabled = false;
   }, 1250);
 };
-const spin = () => {
+const spin = (component) => {
   if (!unhidden)
     hideAndPos();
-  chosen.animal = random(animals);
-  chosen.gender = random(genders);
-  chosen.part = random(parts);
-  setusername();
+  switch (component) {
+    case "animal":
+      chosen.animal = random(animals);
+      break;
+    case "gender":
+      chosen.gender = random(genders);
+      break;
+    case "part":
+      chosen.part = random(genitalbodypart ? genitals : bodyparts);
+      break;
+    default:
+      chosen.animal = random(animals);
+      chosen.gender = random(genders);
+      chosen.part = random(genitalbodypart ? genitals : bodyparts);
+      break;
+  }
+  setusername(component);
 };
+
+animalspan.addEventListener("click", () => {
+  spin("animal");
+});
+genderspan.addEventListener("click", () => {
+  spin("gender");
+});
+partspan.addEventListener("click", () => {
+  spin("part");
+});
+
+copybutton.addEventListener("click", () => {
+  try {
+    writeClipboardText(username.innerText);
+  } catch (e) {}
+});
+
+async function writeClipboardText(text) {
+  try {
+      await navigator.clipboard.writeText(text);
+      copybutton.classList.add(`flashgreen`);
+      setTimeout(() => { copybutton.classList.remove(`flashgreen`) }, 250);
+  } catch (error) {
+      console.error(error.message);
+      copybutton.classList.add(`flashred`);
+      setTimeout(() => { copybutton.classList.remove(`flashred`) }, 250);
+  }
+}
