@@ -6,8 +6,8 @@
 }
 
 :root {
-  --bg-color: hsl(227, 100%, 4%);
-  --bg-color-secondary: hsl(227, 65%, 20%);
+  --bg-color: #000414;
+  --bg-color-secondary: #122054;
 }
 
 div {
